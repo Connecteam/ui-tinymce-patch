@@ -24,13 +24,14 @@ angular.module('ui.tinymce', [])
 
         var expression, options = {}, tinyInstance,
           updateView = function(editor) {
-            var content = editor.getContent({format: options.format}).trim();
+          	if (!editor.destroyed)
+            {var content = editor.getContent({format: options.format}).trim();
             content = $sce.trustAsHtml(content);
 
             ngModel.$setViewValue(content);
             if (!$rootScope.$$phase) {
               scope.$digest();
-            }
+            }}
           };
 
         function toggleDisable(disabled) {
